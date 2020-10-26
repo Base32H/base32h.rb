@@ -6,7 +6,7 @@ module Base32H
   extend self
 
   ##
-  # The complete list of Base32H digits, as an array of strings; the
+  # The complete list of Base32H digits, as an array of strings.  The
   # index of the array is the numeric value of the digit(s) in the
   # string at that index.  The first character in each string is the
   # "canonical" digit (i.e. the one that Base32H-conformant encoders
@@ -19,6 +19,8 @@ module Base32H
   # "canonical" digit of value 27 is +V+, and that +v+, +U+, and +u+
   # are all "aliases" of that canonical digit and decode to a value of
   # 27.
+  #
+  # @return [Array] the full list of digits
   def digits
     ['0Oo',
      '1Ii',
@@ -55,10 +57,13 @@ module Base32H
   end
 
   ##
-  # :category: Encoding Digit
-  #
   # Encodes an integer between 0 and 31 (inclusive) to its Base32H
-  # representation.
+  # representation.  Returns +nil+ for input values outside that
+  # range.
+  #
+  # @param d [Integer] the integer value of the requested digit
+  #
+  # @return [String, NilClass] the resulting digit
   def encode_digit(d)
     d = d.to_i
     return nil unless (0..31).include? d
@@ -66,9 +71,11 @@ module Base32H
   end
 
   ##
-  # :category: Encoding Numeric
-  #
   # Encodes an integer to its Base32H representation.
+  #
+  # @param int [Integer] the integer to encode
+  #
+  # @return [String] the encoded number
   def encode(int)
     rem = int.to_i.abs
     out = []
@@ -81,9 +88,11 @@ module Base32H
   end
 
   ##
-  # :category: Encoding Binary
-  #
   # Encodes a (binary) string to its Base32H representation.
+  #
+  # @param bin [String] the string/binary to encode
+  #
+  # @return [String] the encoded binary
   def encode_bin(bin)
     data = bin.unpack('C*')
     extra = data.length % 5
@@ -97,18 +106,23 @@ module Base32H
   end
 
   ##
-  # :category: Decoding Digit
-  #
   # Decodes a single Base32H digit to its integer representation.
+  # Returns nil if the input is not a Base32H digit.
+  #
+  # @param d [String] the digit to decode
+  #
+  # @return [Integer] the digit's value
   def decode_digit(d)
     d = d.to_s
     digits.find_index {|i| i.include? d}
   end
 
   ##
-  # :category: Decoding Numeric
-  #
   # Decodes a Base32H number to its integer representation.
+  #
+  # @param str [String] the number to decode
+  #
+  # @return [Integer] the decoded integer
   def decode(str)
     res = str.to_s.chars.reverse.reduce({acc: 0, exp: 0}) do |state, char|
       digit = decode_digit(char)
@@ -123,9 +137,11 @@ module Base32H
   end
 
   ##
-  # :category: Decoding Binary
-  #
   # Decodes a Base32H binary into a string of packed unsigned bytes.
+  #
+  # @param str [String] the binary to decode
+  #
+  # @return [String] the decoded binary
   def decode_bin(str)
     data = str.chars.reject {|c| decode_digit(c).nil?}
     extra = data.length % 8
@@ -161,12 +177,20 @@ module Base32H
 end
 
 class Integer
+  ##
+  # Encodes the integer to its Base32H numeric representation.
+  #
+  # @return [String] the integer's Base32H representation
   def to_base32h
     Base32H.encode(self)
   end
 end
 
 class String
+  ##
+  # Encodes the string to its Base32H binary representation.
+  #
+  # @return [String] the string's Base32H representation
   def to_base32h
     Base32H.encode_bin(self)
   end
