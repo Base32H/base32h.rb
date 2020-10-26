@@ -18,7 +18,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec'
 
   s.metadata = {
-    'homepage_uri'    => 'https://base32h.github.io',
-    'source_code_uri' => 'https://github.com/base32h/base32h.rb'
+    'homepage_uri'      => 'https://base32h.github.io',
+    'source_code_uri'   => 'https://github.com/base32h/base32h.rb',
+    'documentation_uri' => 'https://rubydoc.info/gems/base32h/Base32H'
   }
 end

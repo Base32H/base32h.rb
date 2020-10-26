@@ -1,7 +1,7 @@
 ##
 # This module provides Base32H encoding and decoding functions.
 module Base32H
-  VERSION = "0.1.0"
+  VERSION = "0.1.1"
   
   extend self
 
