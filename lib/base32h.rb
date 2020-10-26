@@ -15,10 +15,8 @@ module Base32H
   # Base32H-conformant decoders *must* accept and correctly decode to
   # that value).
   #
-  # For example, +digits[27]+ returns +'VvUu'+, meaning that the
-  # "canonical" digit of value 27 is +V+, and that +v+, +U+, and +u+
-  # are all "aliases" of that canonical digit and decode to a value of
-  # 27.
+  # @example
+  #   Base32H.digits[27] #=> 'VvUu'
   #
   # @return [Array<String>] the full list of digits
   def digits
@@ -55,6 +53,8 @@ module Base32H
      'Yy',
      'Zz']
   end
+
+  # @!group Encoders
 
   ##
   # Encodes an integer between 0 and 31 (inclusive) to its Base32H
@@ -105,6 +105,10 @@ module Base32H
     out.join ''
   end
 
+  # @!endgroup
+
+  # @!group Decoders
+
   ##
   # Decodes a single Base32H digit to its integer representation.
   # Returns nil if the input is not a Base32H digit.
@@ -153,6 +157,8 @@ module Base32H
     end
     out.pack('C*')
   end
+
+  # @!endgroup
 
   private
 
