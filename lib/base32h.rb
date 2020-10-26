@@ -20,7 +20,7 @@ module Base32H
   # are all "aliases" of that canonical digit and decode to a value of
   # 27.
   #
-  # @return [Array] the full list of digits
+  # @return [Array<String>] the full list of digits
   def digits
     ['0Oo',
      '1Ii',
@@ -61,7 +61,7 @@ module Base32H
   # representation.  Returns +nil+ for input values outside that
   # range.
   #
-  # @param d [Integer] the integer value of the requested digit
+  # @param d [#to_i] the integer value of the requested digit
   #
   # @return [String, NilClass] the resulting digit
   def encode_digit(d)
@@ -73,7 +73,7 @@ module Base32H
   ##
   # Encodes an integer to its Base32H representation.
   #
-  # @param int [Integer] the integer to encode
+  # @param int [#to_i] the integer to encode
   #
   # @return [String] the encoded number
   def encode(int)
@@ -109,7 +109,7 @@ module Base32H
   # Decodes a single Base32H digit to its integer representation.
   # Returns nil if the input is not a Base32H digit.
   #
-  # @param d [String] the digit to decode
+  # @param d [#to_s] the digit to decode
   #
   # @return [Integer] the digit's value
   def decode_digit(d)
@@ -120,7 +120,7 @@ module Base32H
   ##
   # Decodes a Base32H number to its integer representation.
   #
-  # @param str [String] the number to decode
+  # @param str [#to_s] the number to decode
   #
   # @return [Integer] the decoded integer
   def decode(str)
